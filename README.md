@@ -24,94 +24,64 @@ Repositório central de estudos, anotações, trabalhos práticos, resumos teór
 
 ---
 
-## 🎯 Objetivos da Disciplina
-
-1. Compreender a fundo os princípios fundamentais e avançados do **Paradigma Orientado a Objetos (POO)**.
-2. Dominar técnicas de **Análise e Design de Software**, utilizando modelagem com **UML** e **Processos Unificados (UP / RUP)**.
-3. Aplicar **Padrões de Projeto (Design Patterns - GoF)**: Criacionais, Estruturais e Comportamentais para resolução de problemas arquiteturais.
-4. Desenvolver visão crítica sobre **arquiteturas desacopladas, extensibilidade, manutenibilidade e boas práticas (SOLID, Clean Architecture)**.
-
----
-
-## 🗂️ Estrutura do Repositório
+## 🗂️ Estrutura e Organização do Repositório por Semanas/Módulos
 
 ```text
 APOO - USP/
 │
+├── 📂 00-Informacoes-Gerais/
+│   ├── README.md                                    # Informações docentes, e-mails, horários e plano
+│   ├── Aula 0 - Apresentação da Disciplina.pdf      # Slides introdutórios da disciplina
+│   └── SSC0124 - APOO - Planejamento disciplina.docx.pdf # Cronograma completo e planejamento
+│
+├── 📂 01-Revisao-Paradigma-OO/
+│   ├── README.md                                    # Resumo teórico dos 4 pilares e boas práticas POO
+│   └── Aula 01 - O paradigma de orientação a objetos.pdf # Slides de revisão da Profa. Lina Garcés
+│
+├── 📂 02-Processos-Desenvolvimento-Software/
+│   ├── README.md                                    # Resumo do Processo Unificado (UP) e métodos ágeis
+│   ├── Aula 02 - Análise e Design de Software e o Processo Unificado.pdf
+│   └── Atividade 1 - Resumo.pdf                     # Resumo manuscrito do Cap. 2 (Valente)
+│
+├── 📂 03-Padroes-de-Projeto-GoF/
+│   ├── README.md                                    # Panorama geral dos Padrões GoF (Criacionais, Estruturais, Comportamentais)
+│   ├── Atividade 2 - Padrões GoF - primeira parte.pdf
+│   │
+│   ├── 📂 01-Padrao-Observer/
+│   │   ├── README.md                                # Ficha técnica, painel Padlet e análise detalhada
+│   │   ├── Rafael_Feltrim_Entrega_Observer.pdf      # Documento oficial entregue no Moodle
+│   │   ├── Rafael_Feltrim_Atividade2_Observer.zip   # Arquivo compactado da entrega
+│   │   └── 📂 Apresentacao-Web/                     # Aplicação interativa em HTML5/CSS3/JS para apresentação
+│   │       ├── index.html                           # Slides interativos da apresentação
+│   │       ├── documento-apoio.html                 # Documentação técnica formatada
+│   │       ├── styles.css / script.js / print.css
+│   │       └── generate_pdf.js                      # Script Puppeteer para exportação PDF
+│   │
+│   └── 📂 02-Atividade-Comparacao-Categorias/
+│       └── README.md                                # Matriz de comparação dos padrões comportamentais (Observer vs Strategy vs Command)
+│
 ├── .gitignore
-├── README.md                                   # Documento principal do repositório
-│
-├── Aula 0 - Apresentação da Disciplina.pdf      # Slides introdutórios e metodologia
-├── Aula 01 - O paradigma de orientação a objetos.pdf
-├── Aula 02 - Análise e Design de Software e o Processo Unificado.pdf
-├── SSC0124 - APOO - Planejamento disciplina.docx.pdf # Plano de ensino e cronograma detalhado
-│
-├── Atividade 1 - Resumo.pdf                    # Resumo Cap. 2 (Engenharia de Software Moderna)
-├── Atividade 2 - Padrões GoF - primeira parte.pdf
-├── Rafael_Feltrim_Entrega_Observer.pdf         # Relatório completo do padrão Observer
-│
-└── Observer - Apresentacao/                    # Aplicação web interativa para apresentação do GoF Observer
-    ├── index.html                              # Apresentação interativa em slides/cards modernos
-    ├── documento-apoio.html                    # Documento formatado para leitura técnica e exportação PDF
-    ├── styles.css                              # Estilização com design system moderno
-    ├── script.js                              # Lógica de interatividade e navegação
-    ├── print.css                               # Estilos otimizados para impressão/PDF
-    └── generate_pdf.js                         # Script Puppeteer para exportação automatizada de PDF
+└── README.md                                        # Portal central de navegação do repositório
 ```
 
 ---
 
-## 📚 Conteúdo Programático & Registro das Aulas
+## 📚 Navegação Rápida por Módulo
 
-### 🔹 Módulo 1: Fundamentos do Paradigma OO & Processos de Software
-- **Aula 00:** Apresentação da disciplina, contrato pedagógico, avaliação e cronograma.
-- **Aula 01:** O Paradigma Orientado a Objetos (Abstração, Encapsulamento, Herança, Polimorfismo, Acoplamento e Coesão).
-- **Aula 02:** Processos de Desenvolvimento de Software & Processo Unificado (Engenharia de Software Moderna - Valente, Cap. 2).
-  - *Entregável:* Resumo individual manuscrito e digitalizado sobre Processos de Software (`Atividade 1 - Resumo.pdf`).
-
----
-
-### 🔹 Módulo 2: Padrões de Projeto (Design Patterns — GoF)
-
-#### Grupo de Especialistas: Padrão Observer (Comportamental)
-- **Integrantes da Equipe:**
-  - Pedro Hamamoto da Palma — Nº USP: 16818280
-  - Nicolas José Mota — Nº USP: 16990096
-  - Rafael Feltrim — Nº USP: 15942812
-- **Ficha Resumo do Padrão Observer:**
-  - **Classificação:** Padrão Comportamental (Behavioral Pattern).
-  - **Propósito:** Definir um mecanismo de assinatura um-para-muitos (1:N) para notificar múltiplos objetos assinantes sobre quaisquer eventos que ocorram no objeto que estão observando.
-  - **Problemas que resolve:** *Polling* excessivo (cliente consultando periodicamente se houve mudança de estado) e *Spam* / Acoplamento rígido (notificar quem não precisa ou acoplar o sujeito a implementações concretas).
-  - **Solução Arquitetural:** Criação de uma classe `Subject` / `Publisher` que gerencia a lista de inscritos e emite notificações através de uma interface genérica `Observer` / `Subscriber`.
-  - **Casos de Uso Reais:** Feeds de Redes Sociais, sistemas de e-commerce ("Avise-me quando chegar"), plataformas de mensageria/eventos, UI Data Binding e Newsletters.
-  - **Vantagens:** Princípio Aberto/Fechado (OCP), baixo acoplamento entre publicador e inscritos, flexibilidade em tempo de execução.
-  - **Desvantagens / Cuidados:** Ordem de notificação não determinística, risco de vazamento de memória se o observador não se desinscrever (*Lapsed Listener Problem*), sobrecarga com eventos de alta frequência.
-
----
-
-## 🚀 Como Executar os Materiais Interativos
-
-Para rodar a apresentação interativa do padrão Observer localmente:
-
-1. Acesse o diretório da apresentação:
-   ```bash
-   cd "Observer - Apresentacao"
-   ```
-2. Abra o arquivo `index.html` em qualquer navegador moderno, ou execute um servidor local:
-   ```bash
-   # Utilizando Python
-   python -m http.server 8000
-   
-   # Ou utilizando Node.js (npx serve)
-   npx serve .
-   ```
-3. Acesse via navegador em: `http://localhost:8000`
+| Módulo / Semana | Tópico Principal | Materiais & Entregas |
+| :--- | :--- | :--- |
+| **[00-Informações Gerais](./00-Informacoes-Gerais/)** | Contrato Pedagógico & Cronograma | [Slides Aula 0](./00-Informacoes-Gerais/Aula%200%20-%20Apresenta%C3%A7%C3%A3o%20da%20Disciplina.pdf), [Plano de Ensino](./00-Informacoes-Gerais/SSC0124%20-%20APOO%20-%20Planejamento%20disciplina.docx.pdf) |
+| **[01-Revisão POO](./01-Revisao-Paradigma-OO/)** | Pilares da OO, Coesão e Acoplamento | [Slides Aula 1](./01-Revisao-Paradigma-OO/Aula%2001%20-%20O%20paradigma%20de%20orienta%C3%A7%C3%A3o%20a%20objetos.pdf), [Resumo Teórico](./01-Revisao-Paradigma-OO/README.md) |
+| **[02-Processos de Software](./02-Processos-Desenvolvimento-Software/)** | Processo Unificado (UP) & Valente Cap. 2 | [Slides Aula 2](./02-Processos-Desenvolvimento-Software/Aula%2002%20-%20An%C3%A1lise%20e%20Design%20de%20Software%20e%20o%20Processo%20Unificado.pdf), [Atividade 1 (Resumo)](./02-Processos-Desenvolvimento-Software/Atividade%201%20-%20Resumo.pdf) |
+| **[03-Padrões GoF](./03-Padroes-de-Projeto-GoF/)** | Padrões de Projeto (GoF) | [Slides Atividade 2](./03-Padroes-de-Projeto-GoF/Atividade%202%20-%20%20Padr%C3%B5es%20GoF%20-%20primeira%20parte.pdf) |
+| ↳ **[Padrão Observer](./03-Padroes-de-Projeto-GoF/01-Padrao-Observer/)** | Especialistas Observer (Turma 10h) | [Apresentação Interativa](./03-Padroes-de-Projeto-GoF/01-Padrao-Observer/Apresentacao-Web/), [PDF Entrega](./03-Padroes-de-Projeto-GoF/01-Padrao-Observer/Rafael_Feltrim_Entrega_Observer.pdf), [Ficha Técnica](./03-Padroes-de-Projeto-GoF/01-Padrao-Observer/README.md) |
+| ↳ **[Comparação Categorias](./03-Padroes-de-Projeto-GoF/02-Atividade-Comparacao-Categorias/)** | Comparação dos Padrões Comportamentais | [Matriz Comparativa](./03-Padroes-de-Projeto-GoF/02-Atividade-Comparacao-Categorias/README.md) |
 
 ---
 
 ## 👥 Colaboradores
 
-- **Rafael Feltrim** ([GitHub](https://github.com/RafaelFeltrim)) — ICMC USP
+- **Rafael Feltrim** ([GitHub](https://github.com/RaFeltrim)) — ICMC USP
 - **Pedro Hamamoto da Palma** — ICMC USP
 - **Nicolas José Mota** — ICMC USP
 
