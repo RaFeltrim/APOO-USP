@@ -39,26 +39,41 @@
 
 ---
 
-## 2. Similitudes (Semelhanças)
-1. **Objetivo Arquitetural Comum:** Todos os três são padrões **comportamentais** voltados a desacoplar remetentes e destinatários de mensagens, aumentando a flexibilidade do design.
-2. **Uso de Interfaces/Polimorfismo:** Todos utilizam abstrações (`Observer`, `Mediator`, `Handler`) permitindo que novas classes sejam adicionadas sem alterar o código existente.
-3. **Dinamismo em Runtime:** A estrutura de relacionamentos (lista de inscritos, elos da cadeia, mediador ativo) pode ser modificada dinamicamente durante a execução da aplicação.
+## 2. Matriz Comparativa entre os Padrões
 
----
-
-## 3. Diferenças Fundamentais
-
-| Critério | Mediator | Observer | Chain of Responsibility |
+| Dimensão de Análise | 7. Mediator | 8. Observer | 9. Chain of Responsibility |
 | :--- | :--- | :--- | :--- |
-| **Fluxo da Informação** | Centralizado: Colegas conversam via Mediador | Difusão (Broadcast): Publicador notifica todos os assinantes | Sequencial: A mensagem flui nó a nó até ser tratada |
-| **Quem recebe a mensagem?** | O Mediador decide quem recebe e processa | **Todos** os observadores inscritos | **Um** ou mais manipuladores ao longo da cadeia |
-| **Conhecimento Mútuo** | Colegas só conhecem o Mediador; Mediador conhece os colegas | Publicador só conhece a interface genérica `Observer` | Cada nó só conhece seu próximo sucessor (`next`) |
-| **Ponto Único de Controle** | Sim (o Mediador centraliza a lógica) | Não (distribuído entre os observadores) | Não (distribuído entre os elos da cadeia) |
+| **Topologia** | Estrela ($N \leftrightarrow 1 \leftrightarrow M$): Centralizada | Broadcast ($1 \rightarrow N$): 1 Publicador para N Assinantes | Pipeline Linear ($1 \rightarrow H_1 \rightarrow H_2 \dots$): Encadeado |
+| **Destino da Mensagem** | O Mediador arbitra e aciona colegas específicos | **Todos** os observadores inscritos recebem | **Um** ou mais manipuladores tratam sequencialmente |
+| **Conhecimento Mútuo** | Colegas conhecem apenas o Mediador | Publicador conhece apenas a interface `Observer` | Cada nó conhece apenas seu sucessor (`next`) |
+| **Direção do Fluxo** | Bidirecional (Colega $\leftrightarrow$ Mediador) | Unidirecional (Publisher $\rightarrow$ Observers) | Sequencial / Unidirecional (Handler $\rightarrow$ Next Handler) |
+| **Casos de Uso Típicos** | Diálogos de UI complexos, Torre de tráfego aéreo | Feeds de Redes Sociais, Newsletter, "Avise-me quando chegar" | Middlewares de autenticação, filtros de requisição HTTP |
 
 ---
 
-## 4. Conclusão da Equipe
-Os três padrões oferecem abordagens complementares para gerenciar a comunicação entre objetos:
-- Se precisamos **notificar múltiplos interessados** sobre um evento ocorrido $\rightarrow$ **Observer**.
-- Se precisamos **coordenar regras complexas entre componentes que precisam colaborar** $\rightarrow$ **Mediator**.
-- Se precisamos **processar uma requisição por etapas ou escolher dinamicamente quem a trata** $\rightarrow$ **Chain of Responsibility**.
+## 3. ⚡ Arquitetura Integrada: Utilizando os 3 Padrões Juntos
+
+Em sistemas modernos e robustos (ex: **Processamento e Faturamento de Pedidos de E-Commerce**), os 3 padrões podem operar em perfeita harmonia em camadas distintas:
+
+1. **Chain of Responsibility (Pipeline de Entrada e Validações):**
+   - A requisição HTTP de compra passa sequencialmente por: `ValidaçãoPayloadHandler` $\rightarrow$ `AutenticacaoHandler` $\rightarrow$ `AnaliseAntifraudeHandler` $\rightarrow$ `LimiteCreditoHandler`.
+   - Se qualquer elo falhar, o fluxo é interrompido imediatamente.
+2. **Mediator (Orquestração e Execução de Negócio):**
+   - Com o pedido aprovado na cadeia, ele é entregue ao `OrderMediator`.
+   - O mediador orquestra as dependências complexas entre subsistemas: reserva produtos no `EstoqueService`, processa cobrança no `PaymentGateway`, gera nota fiscal no `FiscalService` e despacha para o `LogisticaService`.
+3. **Observer (Difusão de Eventos Pós-Transação):**
+   - Concluído o faturamento, o `OrderSubject` emite o evento `PEDIDO_FATURADO` via broadcast 1:N.
+   - Assinantes autônomos reagem de forma assíncrona: `EmailNotificationService` envia o comprovante, `DashboardService` atualiza o faturamento em tempo real e o `AnalyticsService` registra o evento no Data Lake.
+
+---
+
+## 4. 🧭 Guia de Decisão: Quando Abordar Cada Padrão?
+
+- **Escolha OBSERVER quando:** O evento já ocorreu e você precisa apenas avisar múltiplos serviços independentes (broadcast reativo) que realizam tarefas secundárias, sem que o publicador precise saber quem são ou esperar pelo término de suas execuções.
+- **Escolha MEDIATOR quando:** Existe uma forte interdependência e necessidade de orquestração ativa entre componentes (ex: alterar um campo de formulário desabilita outros 3 e calcula um total). Os componentes precisam de um coordenador inteligente central.
+- **Escolha CHAIN OF RESPONSIBILITY quando:** Você tem uma série de verificações, filtros ou tratadores com prioridade ordenada, onde a requisição pode ser consumida/interrompida no meio do caminho ou enriquecida passo a passo.
+
+### ⚠️ Quando NÃO usar:
+- Evite **Mediator** se os objetos quase não interagem (adiciona complexidade desnecessária).
+- Evite **Observer** se a ordem de execução for mandatória ou se o emissor precisar do retorno síncrono dos assinantes.
+- Evite **Chain of Responsibility** se todos os elementos precisarem sempre executar e a ordem for irrelevante (para isso, **Observer** é muito mais limpo).
