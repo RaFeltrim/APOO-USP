@@ -1,0 +1,35 @@
+
+/* Print Styles */
+@media print {
+    body {
+        overflow: visible !important;
+        height: auto !important;
+        background-color: white !important;
+    }
+    .slides-container {
+        height: auto !important;
+        position: static !important;
+        display: block !important;
+    }
+    .slide {
+        position: relative !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        page-break-after: always;
+        height: 100vh !important;
+        display: flex !important;
+        padding: 40px !important;
+        background-color: white !important;
+    }
+    .slide-nav, .progress-bar {
+        display: none !important;
+    }
+    .code-content.hidden {
+        display: block !important; /* Em impressao, mostrar todo o codigo se possivel, ou manter so o primeiro */
+    }
+    .code-tabs {
+        display: none !important;
+    }
+    /* Para não quebrar o layout, vamos focar em imprimir limpo */
+}

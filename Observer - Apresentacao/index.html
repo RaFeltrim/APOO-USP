@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Padrão Observer — SSC0124 APOO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Open+Sans:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="print.css" media="print">
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="slides-container" id="slidesContainer">
+
+        <!-- SLIDE 1: TÍTULO -->
+        <section class="slide active" data-slide="1">
+            <div class="slide-content title-slide">
+                <p class="institution">Universidade de São Paulo — Instituto de Ciências Matemáticas e de Computação</p>
+                <h1 class="main-title">Padrão de Projeto Observer</h1>
+                <p class="subtitle">Catálogo GoF — Padrão Comportamental</p>
+                <div class="title-meta">
+                    <p><strong>Disciplina:</strong> SSC0124 — Análise e Projeto Orientados a Objetos</p>
+                    <p><strong>Aluno:</strong> Rafael Feltrim</p>
+                    <p><strong>Docente:</strong> Profa. Dra. Lina Garcés</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 2: DEFINIÇÃO -->
+        <section class="slide" data-slide="2">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <span class="section-indicator">01</span>
+                    <h2>Definição do Padrão</h2>
+                </div>
+                <div class="definition-box">
+                    <p>
+                        O <strong>Observer</strong> é um padrão de projeto comportamental que estabelece uma dependência <em>um-para-muitos</em> entre objetos, de forma que quando um objeto muda de estado, todos os seus dependentes são notificados e atualizados automaticamente.
+                    </p>
+                </div>
+                <div class="key-concepts">
+                    <div class="concept-card">
+                        <h3>Publicador (Subject)</h3>
+                        <p>Objeto que detém o estado principal e gerencia a emissão de notificações sobre suas alterações.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h3>Assinante (Observer)</h3>
+                        <p>Objetos dependentes que se registram para receber notificações quando o estado do Publicador for alterado.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 3: O PROBLEMA -->
+        <section class="slide" data-slide="3">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <span class="section-indicator">02</span>
+                    <h2>O Problema</h2>
+                </div>
+                <p class="slide-intro">Considere a necessidade de manter consistência entre objetos relacionados sem criar acoplamento forte.</p>
+                <div class="problem-grid">
+                    <div class="problem-card">
+                        <h3>Abordagem 1: Polling Constante</h3>
+                        <p>O objeto dependente verifica o estado do objeto principal periodicamente.</p>
+                        <p class="problem-consequence">Desperdício considerável de recursos computacionais, pois a maioria das verificações não resulta em alterações.</p>
+                    </div>
+                    <div class="problem-card">
+                        <h3>Abordagem 2: Notificação em Massa</h3>
+                        <p>O objeto principal notifica indiscriminadamente todos os outros objetos do sistema a cada mudança.</p>
+                        <p class="problem-consequence">Sobrecarga de comunicação e processamento em objetos que não têm interesse na alteração.</p>
+                    </div>
+                </div>
+                <div class="problem-conclusion">
+                    <p><strong>Dilema:</strong> Como notificar apenas os objetos interessados, no momento exato da alteração, sem que o emissor precise conhecer a classe concreta dos receptores?</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 4: A SOLUÇÃO -->
+        <section class="slide" data-slide="4">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <span class="section-indicator">03</span>
+                    <h2>A Solução Proposta</h2>
+                </div>
+                <p class="slide-intro">O padrão introduz um mecanismo estruturado de inscrição (<em>Publish-Subscribe</em>):</p>
+                
+                <div class="solution-flow">
+                    <div class="flow-step">
+                        <div class="step-number">1. Inscrição</div>
+                        <p>Objetos <em>Observers</em> anexam-se ao <em>Subject</em> através de um método público.</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="step-number">2. Alteração de Estado</div>
+                        <p>O <em>Subject</em> sofre uma modificação em seu estado interno.</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="step-number">3. Notificação</div>
+                        <p>O <em>Subject</em> itera sobre sua lista de inscritos, invocando um método comum de atualização.</p>
+                    </div>
+                </div>
+
+                <div class="solution-key">
+                    <h3>Elementos Arquiteturais Fundamentais</h3>
+                    <ul class="academic-list">
+                        <li>O <em>Subject</em> mantém apenas uma lista de referências abstratas (interfaces).</li>
+                        <li>Métodos de gerenciamento: <code>attach()</code> e <code>detach()</code>.</li>
+                        <li>Os <em>Observers</em> implementam uma interface comum contendo o método <code>update()</code>.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 5: ANALOGIA -->
+        <section class="slide" data-slide="5">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <span class="section-indicator">04</span>
+                    <h2>Contextualização Abstrata</h2>
+                </div>
+                <div class="analogy-container">
+                    <div class="analogy-card">
+                        <h3>Analogia: Assinatura de Periódicos</h3>
+                        <p>Em vez de um leitor visitar a banca diariamente para verificar se uma nova edição foi lançada (Polling), ele realiza uma assinatura.</p>
+                        <p>A editora mantém um registro de assinantes e, assim que a edição é publicada, a distribui ativamente para os endereços registrados.</p>
+                        <p>O assinante pode cancelar o serviço (unsubscribe) a qualquer momento, removendo-se da lista.</p>
+                    </div>
+                    <div class="analogy-mapping">
+                        <h3>Mapeamento Estrutural</h3>
+                        <table class="mapping-table">
+                            <tr>
+                                <td>Editora</td>
+                                <td>→</td>
+                                <td><strong>Subject</strong> (Publicador)</td>
+                            </tr>
+                            <tr>
+                                <td>Lista de Endereços</td>
+                                <td>→</td>
+                                <td><strong>Estrutura de Dados</strong> (Coleção)</td>
+                            </tr>
+                            <tr>
+                                <td>Leitores Inscritos</td>
+                                <td>→</td>
+                                <td><strong>Observers</strong> (Assinantes)</td>
+                            </tr>
+                            <tr>
+                                <td>Entrega da Edição</td>
+                                <td>→</td>
+                                <td><strong>Método update()</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 6: ESTRUTURA UML -->
+        <section class="slide" data-slide="6">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <span class="section-indicator">05</span>
+                    <h2>Estrutura UML do Padrão</h2>
+                </div>
+                <div class="uml-wrapper">
+                    <div class="uml-diagram-clean">
+                        <!-- Top Row: Interfaces -->
+                        <div class="uml-node interface">
+                            <div class="uml-title">«interface»<br>Subject</div>
+                            <div class="uml-methods">
+                                + attach(observer: Observer)<br>
+                                + detach(observer: Observer)<br>
+                                + notify()
+                            </div>
+                        </div>
+                        <div class="uml-arrow arrow-right"></div>
+                        <div class="uml-node interface">
+                            <div class="uml-title">«interface»<br>Observer</div>
+                            <div class="uml-methods">
+                                + update()
+                            </div>
+                        </div>
+                        
+                        <!-- Bottom Row: Concrete Classes -->
+                        <div class="uml-node concrete">
+                            <div class="uml-title">ConcreteSubject</div>
+                            <div class="uml-methods">
+                                - subjectState<br>
+                                + getState()<br>
+                                + setState()
+                            </div>
+                        </div>
+                        <div class="uml-arrow arrow-none"></div>
+                        <div class="uml-node concrete">
+                            <div class="uml-title">ConcreteObserver</div>
+                            <div class="uml-methods">
+                                - observerState<br>
+                                + update()
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 7: EXEMPLO PRÁTICO -->
+        <section class="slide" data-slide="7">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <span class="section-indicator">06</span>
+                    <h2>Implementação (Java) — Estrutura Base</h2>
+                </div>
+                <div class="code-container">
+                    <div class="code-tabs">
+                        <button class="code-tab active" onclick="showTab('java-int', this)">Interfaces</button>
+                        <button class="code-tab" onclick="showTab('java-sub', this)">Concrete Subject</button>
+                        <button class="code-tab" onclick="showTab('java-obs', this)">Concrete Observer</button>
+                    </div>
+                    
+                    <div class="code-content" id="java-int">
+<pre><code><span class="cmt">// Interfaces que estabelecem o contrato de comunicação</span>
+<span class="kw">public interface</span> <span class="cls">Subject</span> {
+    <span class="kw">void</span> <span class="fn">attach</span>(Observer observer);
+    <span class="kw">void</span> <span class="fn">detach</span>(Observer observer);
+    <span class="kw">void</span> <span class="fn">notifyObservers</span>();
+}
+
+<span class="kw">public interface</span> <span class="cls">Observer</span> {
+    <span class="kw">void</span> <span class="fn">update</span>(<span class="type">float</span> temperature);
+}</code></pre>
+                    </div>
+
+                    <div class="code-content hidden" id="java-sub">
+<pre><code><span class="kw">public class</span> <span class="cls">WeatherStation</span> <span class="kw">implements</span> <span class="cls">Subject</span> {
+    <span class="kw">private</span> List&lt;Observer&gt; observers = <span class="kw">new</span> ArrayList&lt;&gt;();
+    <span class="kw">private float</span> temperature;
+
+    <span class="kw">public void</span> <span class="fn">attach</span>(Observer o) { observers.add(o); }
+    <span class="kw">public void</span> <span class="fn">detach</span>(Observer o) { observers.remove(o); }
+
+    <span class="kw">public void</span> <span class="fn">notifyObservers</span>() {
+        <span class="kw">for</span> (Observer o : observers) {
+            o.<span class="fn">update</span>(temperature);
+        }
+    }
+
+    <span class="kw">public void</span> <span class="fn">setTemperature</span>(<span class="type">float</span> t) {
+        <span class="kw">this</span>.temperature = t;
+        <span class="fn">notifyObservers</span>(); <span class="cmt">// Propaga a mudança</span>
+    }
+}</code></pre>
+                    </div>
+
+                    <div class="code-content hidden" id="java-obs">
+<pre><code><span class="kw">public class</span> <span class="cls">TemperatureDisplay</span> <span class="kw">implements</span> <span class="cls">Observer</span> {
+    <span class="kw">private</span> String displayName;
+
+    <span class="kw">public</span> <span class="fn">TemperatureDisplay</span>(String name) {
+        <span class="kw">this</span>.displayName = name;
+    }
+
+    <span class="kw">public void</span> <span class="fn">update</span>(<span class="type">float</span> temperature) {
+        System.out.println(displayName + <span class="str">": Atualização de temperatura -> "</span> + temperature + <span class="str">"°C"</span>);
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 8: QUANDO APLICAR -->
+        <section class="slide" data-slide="8">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <span class="section-indicator">07</span>
+                    <h2>Aplicabilidade</h2>
+                </div>
+                <div class="when-grid">
+                    <div class="when-card">
+                        <h3>Cenários Indicados</h3>
+                        <ul class="academic-list">
+                            <li>Quando a alteração no estado de um objeto exige a modificação de outros, e o conjunto de dependentes é desconhecido ou dinâmico a tempo de execução.</li>
+                            <li>Quando uma abstração possui dois aspectos onde um depende do outro. Encapsular esses aspectos em objetos separados permite sua variação e reutilização independentes.</li>
+                            <li>Quando é necessário estabelecer comunicação entre componentes sem introduzir acoplamento rígido (Princípio da Inversão de Dependência).</li>
+                        </ul>
+                    </div>
+                    <div class="when-card">
+                        <h3>Contraindicações</h3>
+                        <ul class="academic-list">
+                            <li>Quando o fluxo de notificação é rigorosamente sequencial (padrões como <em>Chain of Responsibility</em> são mais adequados).</li>
+                            <li>Quando a quantidade de observadores é estática e estritamente limitada, tornando a infraestrutura de eventos desnecessária.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 9: PRÓS E CONTRAS -->
+        <section class="slide" data-slide="9">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <span class="section-indicator">08</span>
+                    <h2>Análise Crítica</h2>
+                </div>
+                <div class="proscons-container">
+                    <div class="proscons-column">
+                        <h3 class="pros-title">Vantagens (Prós)</h3>
+                        <ul class="academic-list">
+                            <li><strong>Acoplamento Abstrato:</strong> O <em>Subject</em> conhece os <em>Observers</em> apenas através de uma interface abstrata.</li>
+                            <li><strong>Suporte a Broadcast:</strong> A notificação é enviada a todos os objetos inscritos nativamente.</li>
+                            <li><strong>Princípio Aberto/Fechado (OCP):</strong> É possível introduzir novas classes de assinantes sem modificar o código do publicador.</li>
+                        </ul>
+                    </div>
+                    <div class="proscons-column">
+                        <h3 class="cons-title">Desvantagens (Contras)</h3>
+                        <ul class="academic-list">
+                            <li><strong>Atualizações Inesperadas:</strong> Como os observadores não se conhecem, o custo de uma alteração de estado pode ser alto.</li>
+                            <li><strong>Ordem não Determinística:</strong> A ordem na qual os observadores são notificados geralmente não é garantida.</li>
+                            <li><strong>Vazamento de Memória:</strong> A falha em desregistrar observadores (<em>Lapsed Listener Problem</em>) retém objetos na memória.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 10: RELAÇÕES -->
+        <section class="slide" data-slide="10">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <span class="section-indicator">09</span>
+                    <h2>Considerações Finais</h2>
+                </div>
+                
+                <div class="relations-container">
+                    <div class="relation-item">
+                        <h4>Observer vs. Mediator</h4>
+                        <p>Enquanto o <em>Mediator</em> centraliza o fluxo de comunicação encapsulando as interações em um objeto gestor, o <em>Observer</em> distribui a comunicação dinamicamente, conectando emissores e receptores através de interfaces.</p>
+                    </div>
+                    <div class="relation-item">
+                        <h4>Uso Típico em Arquitetura de Software</h4>
+                        <p>O Observer é a fundação para arquiteturas reativas (Reactive Programming), arquiteturas orientadas a eventos (Event-Driven Architecture) e o tradicional padrão MVC (Model-View-Controller), no qual a View atua como Observer do Model.</p>
+                    </div>
+                </div>
+
+                <div class="conclusion-box">
+                    <p>O Padrão Observer demonstra o poder das interfaces em isolar responsabilidades. Ao promover um acoplamento mínimo entre emissores e receptores, tornou-se essencial para a construção de sistemas distribuídos, processamento de eventos e interfaces gráficas responsivas na engenharia de software moderna.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <nav class="slide-nav">
+        <div class="nav-brand">SSC0124 — APOO</div>
+        <div class="nav-controls">
+            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" aria-label="Anterior">◀ Anterior</button>
+            <span class="slide-counter" id="slideCounter">1 / 10</span>
+            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)" aria-label="Próximo">Próximo ▶</button>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
