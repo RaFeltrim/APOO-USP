@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Discussão GoF - Padrões Comportamentais</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --primary: #003366;
+            --primary-dark: #002244;
+            --secondary: #0284c7;
+            --accent: #f59e0b;
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --tag-bg: #e0f2fe;
+            --tag-text: #0369a1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-page);
+            line-height: 1.5;
+            padding: 24px;
+            font-size: 13px;
+        }
+
+        .document-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 32px 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border);
+        }
+
+        /* HEADER */
+        .header {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 18px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .header-left h1 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .header-left h2 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 6px;
+        }
+
+        .header-left p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .badge-usp {
+            background: linear-gradient(135deg, #003366, #0284c7);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        /* METADATA / MEMBERS CARD */
+        .members-card {
+            background: #f1f5f9;
+            border-left: 4px solid var(--primary);
+            border-radius: 6px;
+            padding: 14px 18px;
+            margin-bottom: 24px;
+        }
+
+        .members-card h3 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 8px;
+        }
+
+        .member-item {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-size: 12px;
+        }
+
+        .member-item strong {
+            color: var(--primary);
+        }
+
+        .member-role {
+            display: inline-block;
+            background: #e2e8f0;
+            color: #475569;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-left: 4px;
+        }
+
+        /* SECTION STYLING */
+        .section-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 20px 0 12px 0;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .patterns-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .pattern-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--secondary);
+            border-radius: 8px;
+            padding: 14px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .pattern-card.observer { border-top-color: #10b981; }
+        .pattern-card.mediator { border-top-color: #6366f1; }
+        .pattern-card.chain { border-top-color: #f59e0b; }
+
+        .pattern-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .pattern-subtitle {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .pattern-field {
+            font-size: 11.5px;
+            line-height: 1.4;
+        }
+
+        .pattern-field strong {
+            color: var(--primary-dark);
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-bottom: 2px;
+        }
+
+        /* TABLE */
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0 20px 0;
+            font-size: 11.5px;
+        }
+
+        .styled-table th, .styled-table td {
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .styled-table th {
+            background: #003366;
+            color: white;
+            font-weight: 700;
+            font-size: 11.5px;
+        }
+
+        .styled-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .styled-table td strong {
+            color: var(--primary);
+        }
+
+        /* DISCUSSION SÍNTESE */
+        .discussion-box {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .discussion-box h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .discussion-box ul {
+            padding-left: 18px;
+            font-size: 12px;
+            line-height: 1.5;
+            color: #334155;
+        }
+
+        .discussion-box li {
+            margin-bottom: 4px;
+        }
+
+        .footer-note {
+            margin-top: 24px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            font-size: 11px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .document-container {
+                box-shadow: none;
+                border: none;
+                padding: 15px;
+                max-width: 100%;
+            }
+            .patterns-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="document-container">
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-left">
+            <h1>SSC0124 — Análise e Projeto Orientados a Objetos</h1>
+            <h2>Atividade em Sala de Aula: Comparação de Padrões GoF (Jigsaw)</h2>
+            <p><strong>Docente:</strong> Profa. Dra. Lina Garcés | <strong>Data:</strong> 24 de Agosto de 2026 | <strong>Turma:</strong> 10h10</p>
+        </div>
+        <div class="badge-usp">
+            ICMC - USP<br><span style="font-size: 9px; font-weight: normal;">São Carlos</span>
+        </div>
+    </div>
+
+    <!-- MEMBERS CARD -->
+    <div class="members-card">
+        <h3>👥 Grupo de Discussão — Categoria C: Comportamentais</h3>
+        <div class="members-grid">
+            <div class="member-item">
+                <strong>Rafael Feltrim</strong> (Nº USP: 15942812)
+                <span class="member-role">Observer</span>
+            </div>
+            <div class="member-item">
+                <strong>Pedro Hamamoto da Palma</strong> (Nº USP: 16818280)
+                <span class="member-role">Observer</span>
+            </div>
+            <div class="member-item">
+                <strong>Nicolas José Mota</strong> (Nº USP: 16990096)
+                <span class="member-role">Observer</span>
+            </div>
+            <div class="member-item">
+                <strong>Especialistas do Grupo</strong>
+                <span class="member-role">Mediator</span>
+            </div>
+            <div class="member-item">
+                <strong>Especialistas do Grupo</strong>
+                <span class="member-role">Chain of Resp.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SÍNTESE DOS 3 PADRÕES -->
+    <div class="section-title">📌 1. Síntese dos Padrões da Categoria Comportamental</div>
+    
+    <div class="patterns-container">
+        <!-- MEDIATOR -->
+        <div class="pattern-card mediator">
+            <div class="pattern-title">7. Mediator</div>
+            <div class="pattern-subtitle">Comunicação Centralizada ($N \leftrightarrow 1 \leftrightarrow M$)</div>
+            
+            <div class="pattern-field">
+                <strong>Propósito:</strong>
+                Centralizar as interações e trocas de mensagens complexas entre múltiplos objetos em um único objeto mediador.
+            </div>
+            <div class="pattern-field">
+                <strong>Problema Resolvido:</strong>
+                Elimina o acoplamento caótico multidirecional entre colegas que dependem uns dos outros.
+            </div>
+            <div class="pattern-field">
+                <strong>Solução:</strong>
+                Colegas conversam exclusivamente com o `Mediator`, que orquestra a lógica de cooperação.
+            </div>
+            <div class="pattern-field">
+                <strong>Prós & Contras:</strong>
+                <span style="color:#059669;">✔</span> Baixo acoplamento entre colegas.<br>
+                <span style="color:#dc2626;">✖</span> Risco do Mediador virar um <em>God Object</em> monolítico.
+            </div>
+        </div>
+
+        <!-- OBSERVER -->
+        <div class="pattern-card observer">
+            <div class="pattern-title">8. Observer</div>
+            <div class="pattern-subtitle">Notificação por Assinatura ($1 \rightarrow N$)</div>
+            
+            <div class="pattern-field">
+                <strong>Propósito:</strong>
+                Definir dependência 1:N para notificar múltiplos assinantes automaticamente sobre alterações de estado.
+            </div>
+            <div class="pattern-field">
+                <strong>Problema Resolvido:</strong>
+                Evita <em>Polling</em> (consultas contínuas) e o acoplamento do publicador a classes concretas receptoras.
+            </div>
+            <div class="pattern-field">
+                <strong>Solução:</strong>
+                `Publisher/Subject` gerencia `List<Observer>` e despacha notificações via interface genérica.
+            </div>
+            <div class="pattern-field">
+                <strong>Prós & Contras:</strong>
+                <span style="color:#059669;">✔</span> Conformidade com OCP e desacoplamento total.<br>
+                <span style="color:#dc2626;">✖</span> Ordem indeterminada; risco de *Lapsed Listener*.
+            </div>
+        </div>
+
+        <!-- CHAIN OF RESPONSIBILITY -->
+        <div class="pattern-card chain">
+            <div class="pattern-title">9. Chain of Resp.</div>
+            <div class="pattern-subtitle">Pipeline Sequencial ($1 \rightarrow H_1 \dots \rightarrow H_n$)</div>
+            
+            <div class="pattern-field">
+                <strong>Propósito:</strong>
+                Desacoplar remetente de receptores passando a requisição por uma cadeia encadeada até ser processada.
+            </div>
+            <div class="pattern-field">
+                <strong>Problema Resolvido:</strong>
+                Evita ligar o remetente ao tratador específico de antemão, permitindo múltiplos nós de avaliação.
+            </div>
+            <div class="pattern-field">
+                <strong>Solução:</strong>
+                Manipuladores encadeados via referência `next`, onde cada nó decide tratar ou repassar.
+            </div>
+            <div class="pattern-field">
+                <strong>Prós & Contras:</strong>
+                <span style="color:#059669;">✔</span> Flexibilidade na ordem e composição em runtime.<br>
+                <span style="color:#dc2626;">✖</span> Sem garantia de tratamento se nenhum nó processar.
+            </div>
+        </div>
+    </div>
+
+    <!-- TABELA COMPARATIVA -->
+    <div class="section-title">📊 2. Matriz Comparativa entre os Padrões</div>
+    
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Dimensão de Análise</th>
+                <th>7. Mediator</th>
+                <th>8. Observer</th>
+                <th>9. Chain of Responsibility</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Topologia de Comunicação</strong></td>
+                <td>Estrela ($N \leftrightarrow 1 \leftrightarrow M$): Centralizada</td>
+                <td>Difusão / Broadcast ($1 \rightarrow N$): 1 Publicador para N Assinantes</td>
+                <td>Pipeline Linear ($1 \rightarrow H_1 \rightarrow H_2 \dots$): Encadeado</td>
+            </tr>
+            <tr>
+                <td><strong>Destino da Mensagem</strong></td>
+                <td>O Mediador arbitra e aciona colegas específicos</td>
+                <td><strong>Todos</strong> os observadores inscritos recebem</td>
+                <td><strong>Um</strong> ou mais manipuladores tratam sequencialmente</td>
+            </tr>
+            <tr>
+                <td><strong>Conhecimento entre Objetos</strong></td>
+                <td>Colegas conhecem apenas o Mediador</td>
+                <td>Publicador conhece apenas a interface `Observer`</td>
+                <td>Cada manipulador conhece apenas seu sucessor (`next`)</td>
+            </tr>
+            <tr>
+                <td><strong>Direção do Fluxo</strong></td>
+                <td>Bidirecional (Colega $\leftrightarrow$ Mediador)</td>
+                <td>Unidirecional (Publisher $\rightarrow$ Observers)</td>
+                <td>Sequencial / Unidirecional (Handler $\rightarrow$ Next Handler)</td>
+            </tr>
+            <tr>
+                <td><strong>Casos de Uso Típicos</strong></td>
+                <td>Diálogos de UI com campos interdependentes, Torre de tráfego</td>
+                <td>Feeds de Redes Sociais, Newsletter, "Avise-me quando chegar"</td>
+                <td>Middlewares web de autenticação, filtros de requisição HTTP</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- DISCUSSÃO E SÍNTESE -->
+    <div class="section-title">🧠 3. Síntese da Discussão do Grupo</div>
+
+    <div class="discussion-box">
+        <h4>Similitudes (Semelhanças Identificadas):</h4>
+        <ul>
+            <li><strong>Foco em Comunicação e Desacoplamento:</strong> Todos os três pertencem à categoria <em>Comportamental</em> e visam reduzir o acoplamento direto entre quem gera uma mensagem/evento e quem a consome.</li>
+            <li><strong>Uso de Abstrações e Polimorfismo:</strong> Todos dependem de interfaces (`Observer`, `Mediator`, `Handler`) permitindo que novas classes sejam adicionadas sem modificar o código do cliente (Princípio Aberto/Fechado - OCP).</li>
+            <li><strong>Reconfiguração Dinâmica (Runtime):</strong> Os três padrões permitem plugar e desdobrar relacionamentos dinamicamente durante a execução da aplicação.</li>
+        </ul>
+    </div>
+
+    <div class="discussion-box">
+        <h4>Diferenças Chave e Critério de Escolha:</h4>
+        <ul>
+            <li><strong>Centralizado vs. Distribuído:</strong> O <em>Mediator</em> centraliza toda a lógica de negócio das interações em um único ponto, enquanto o <em>Observer</em> e o <em>Chain of Responsibility</em> distribuem a responsabilidade entre múltiplos receptores autônomos.</li>
+            <li><strong>Difusão vs. Processamento Seletivo:</strong> O <em>Observer</em> garante que <u>todos</u> os interessados sejam notificados simultaneamente; o <em>Chain of Responsibility</em> busca o <u>primeiro</u> manipulador elegível para interromper ou filtrar o fluxo.</li>
+            <li><strong>Composição de Padrões:</strong> Na prática, os padrões podem cooperar: um <em>Mediator</em> pode usar internamente o <em>Observer</em> para escutar eventos de seus colegas de forma reativa.</li>
+        </ul>
+    </div>
+
+    <div class="footer-note">
+        SSC0124 - Análise e Projeto Orientados a Objetos • ICMC - USP São Carlos • Relatório Gerado para Entrega Oficial no e-Disciplinas
+    </div>
+</div>
+
+</body>
+</html>
