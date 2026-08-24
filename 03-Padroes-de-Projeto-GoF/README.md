@@ -1,28 +1,28 @@
 # Semana 03 — Padrões de Projeto (Design Patterns — GoF)
 
-## 🎯 Objetivos de Aprendizagem
-Estudar as soluções reutilizáveis para problemas recorrentes de arquitetura e design de software propostas pela *Gang of Four (GoF)* (Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides).
+## 🔗 Links e Recursos do e-Disciplinas
+- **Seção Moodle:** [Padrões de Projeto - GoF](https://edisciplinas.usp.br/course/section.php?id=6991979)
+- **Tarefas e Arquivos:**
+  - [Atividade individual - Estudo de padrão (Tarefa)](https://edisciplinas.usp.br/mod/assign/view.php?id=6539331) *(Prazo: 24 ago 2026, 08:00)*
+  - [Atividade GoF Turma 8h (Arquivo)](https://edisciplinas.usp.br/mod/resource/view.php?id=6549857)
+  - [Atividade GoF - Turma 10h (Arquivo)](https://edisciplinas.usp.br/mod/resource/view.php?id=6549858)
+  - [Atividade em sala de aula - Comparação entre os 3 padrões de uma categoria (Tarefa)](https://edisciplinas.usp.br/mod/assign/view.php?id=6549856) *(Prazo: 24 ago 2026, 12:00)*
 
 ---
 
-## 🏛️ Classificação dos Padrões GoF
+## 🎯 Atividades da Semana
 
-| Categoria | Propósito Principal | Exemplos |
-| :--- | :--- | :--- |
-| **Criacionais** | Mecanismos de criação e instanciação de objetos, desacoplando o cliente de classes concretas. | Singleton, Factory Method, Abstract Factory, Builder, Prototype |
-| **Estruturais** | Composição de classes e objetos para formar estruturas maiores e mais flexíveis. | Adapter, Bridge, Composite, Decorator, Facade, Flyweight, Proxy |
-| **Comportamentais** | Algoritmos e atribuição de responsabilidades e comunicação dinâmica entre objetos. | **Observer**, Strategy, Command, Iterator, State, Template Method, Chain of Responsibility, Mediator, Memento, Visitor |
+### 1. Atividade Individual / Especialistas — Estudo de Padrão
+- **Abertura:** Terça-feira, 18 ago. 2026, 00:00
+- **Vencimento:** Segunda-feira, 24 ago. 2026, 08:00
+- **Objetivo:** Cada aluno/dupla prepara o material completo do seu padrão GoF sorteado para apresentar aos colegas.
+- **Padrão Desenvolvido:** [Padrão Observer (Comportamental)](./01-Padrao-Observer/)
 
----
-
-## 📂 Organização das Atividades da Semana
-
-1. **[01-Padrao-Observer/](./01-Padrao-Observer/):**
-   - Estudo aprofundado do padrão Observer (Comportamental).
-   - Apresentação interativa web, slides, documento técnico de apoio e relatório oficial entregue.
-   - Painel Padlet com o resumo dos especialistas da Turma 10h.
-2. **[02-Atividade-Comparacao-Categorias/](./02-Atividade-Comparacao-Categorias/):**
-   - Comparação e discussão em sala de aula dos 3 padrões comportamentais entre grupos especialistas.
-
-## 📄 Arquivos Disponibilizados
-- [`Atividade 2 - Padrões GoF - primeira parte.pdf`](./Atividade%202%20-%20%20Padr%C3%B5es%20GoF%20-%20primeira%20parte.pdf)
+### 2. Atividade em Sala de Aula — Comparação entre 3 Padrões de uma Categoria
+- **Abertura:** Segunda-feira, 24 ago. 2026, 00:00
+- **Vencimento:** Segunda-feira, 24 ago. 2026, 12:00
+- **Dinâmica:**
+  - Apresentação de 10 minutos por padrão por especialista para o novo grupo misto.
+  - Discussão técnica de 50 minutos sobre semelhanças, diferenças e combinações.
+  - Envio de documento síntese no Moodle.
+- **Registro:** [Atividade de Comparação de Categorias](./02-Atividade-Comparacao-Categorias/)
