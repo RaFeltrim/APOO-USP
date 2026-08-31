@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudo Comparativo de Padrões GoF e Categorias</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --primary: #003366;
+            --primary-dark: #002244;
+            --secondary: #0284c7;
+            --accent: #f59e0b;
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #cbd5e1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-page);
+            line-height: 1.5;
+            padding: 24px;
+            font-size: 12px;
+        }
+
+        .document-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 36px 44px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+        }
+
+        /* HEADER */
+        .header {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 14px;
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .header-left h1 {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.4px;
+            margin-bottom: 3px;
+        }
+
+        .header-left h2 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 4px;
+        }
+
+        .header-left p {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .badge-usp {
+            background: linear-gradient(135deg, #003366, #0284c7);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 10.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        /* MEMBERS CARD */
+        .members-card {
+            background: #f1f5f9;
+            border-left: 4px solid var(--primary);
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-bottom: 20px;
+        }
+
+        .members-card h3 {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .member-item {
+            background: white;
+            padding: 6px 10px;
+            border-radius: 4px;
+            border: 1px solid #cbd5e1;
+            font-size: 11px;
+        }
+
+        .member-item strong {
+            color: var(--primary);
+        }
+
+        /* SECTION TITLES */
+        .section-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 22px 0 10px 0;
+            padding-bottom: 4px;
+            border-bottom: 1.5px solid var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .subsection-title {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--secondary);
+            margin: 14px 0 8px 0;
+        }
+
+        /* CARDS FOR PATTERNS */
+        .pattern-box {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--secondary);
+            border-radius: 6px;
+            padding: 12px 14px;
+            margin-bottom: 12px;
+        }
+
+        .pattern-box.creational { border-left-color: #0284c7; }
+        .pattern-box.structural { border-left-color: #10b981; }
+        .pattern-box.behavioral { border-left-color: #8b5cf6; }
+
+        .pattern-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .pattern-name {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--primary-dark);
+        }
+
+        .pattern-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .pattern-desc {
+            font-size: 11.5px;
+            color: #334155;
+            margin-bottom: 6px;
+            line-height: 1.45;
+        }
+
+        .pattern-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            font-size: 11px;
+            margin-top: 6px;
+            background: #f8fafc;
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        .pattern-details div strong {
+            display: block;
+            color: var(--primary);
+            margin-bottom: 2px;
+        }
+
+        /* TABLES */
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0 20px 0;
+            font-size: 11px;
+        }
+
+        .styled-table th, .styled-table td {
+            padding: 8px 10px;
+            border: 1px solid var(--border);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .styled-table th {
+            background: #003366;
+            color: white;
+            font-weight: 700;
+            font-size: 11px;
+        }
+
+        .styled-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .footer-note {
+            margin-top: 24px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+            font-size: 10px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .document-container {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            .pattern-box {
+                break-inside: avoid;
+            }
+            .styled-table {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="document-container">
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-left">
+            <h1>SSC0124 — Análise e Projeto Orientados a Objetos</h1>
+            <h2>Relatório: Estudo Comparativo de Padrões GoF e suas Categorias</h2>
+            <p><strong>Docente:</strong> Profa. Dra. Lina Garcés | <strong>Data:</strong> 31 de Agosto de 2026 | <strong>Turma:</strong> 10h10</p>
+        </div>
+        <div class="badge-usp">
+            ICMC - USP<br><span style="font-size: 8.5px; font-weight: normal;">São Carlos</span>
+        </div>
+    </div>
+
+    <!-- MEMBERS CARD -->
+    <div class="members-card">
+        <h3>Identificação da Equipe</h3>
+        <div class="members-grid">
+            <div class="member-item">
+                <strong>Rafael Feltrim</strong><br>Nº USP: 15942812
+            </div>
+            <div class="member-item">
+                <strong>Pedro Vitor S Lau</strong><br>Nº USP: 13837133
+            </div>
+            <div class="member-item">
+                <strong>Matheus Araújo Alves</strong><br>Nº USP: 1690609
+            </div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 1: CATEGORIAS GOF -->
+    <div class="section-title">1. Significado das Categorias de Padrões GoF</div>
+    <p style="font-size: 11.5px; margin-bottom: 12px; line-height: 1.5; color: #334155;">
+        O catálogo da <em>Gang of Four</em> (Erich Gamma, Richard Helm, Ralph Johnson e John Vlissides) organiza as soluções arquiteturais em três macrocategorias fundamentadas na intenção primordial do problema de design:
+    </p>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px;">
+        <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 6px; padding: 10px;">
+            <strong style="color: #0369a1; font-size: 12px; display: block; margin-bottom: 4px;">Padrões Criacionais</strong>
+            <p style="font-size: 10.5px; line-height: 1.4; color: #0c4a6e;">
+                Abstraem o processo de instanciação. Tornam o sistema independente de como seus objetos são criados, compostos e representados, encapsulando o conhecimento sobre classes concretas.
+            </p>
+        </div>
+        <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 6px; padding: 10px;">
+            <strong style="color: #047857; font-size: 12px; display: block; margin-bottom: 4px;">Padrões Estruturais</strong>
+            <p style="font-size: 10.5px; line-height: 1.4; color: #064e3b;">
+                Focam na composição de classes e objetos para formar estruturas maiores e mais flexíveis. Permitem que interfaces incompatíveis colaborem e criam abstrações limpas sobre subsistemas.
+            </p>
+        </div>
+        <div style="background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 6px; padding: 10px;">
+            <strong style="color: #6d28d9; font-size: 12px; display: block; margin-bottom: 4px;">Padrões Comportamentais</strong>
+            <p style="font-size: 10.5px; line-height: 1.4; color: #4c1d95;">
+                Concentram-se nos algoritmos, na atribuição de responsabilidades e na dinâmica de comunicação e controle de fluxo entre objetos em tempo de execução.
+            </p>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 2: CATEGORIA A - CRIACIONAIS -->
+    <div class="section-title">2. Categoria A — Padrões Criacionais</div>
+
+    <!-- SINGLETON -->
+    <div class="pattern-box creational">
+        <div class="pattern-header">
+            <span class="pattern-name">1. Singleton</span>
+            <span class="pattern-tag">Criacional</span>
+        </div>
+        <p class="pattern-desc">
+            Garante que uma classe possua apenas uma única instância em memória durante todo o ciclo de vida da aplicação e fornece um ponto de acesso global a ela através de um método estático.
+        </p>
+        <div class="pattern-details">
+            <div>
+                <strong>Aplicações & Benefícios:</strong>
+                • Gerenciadores de conexão a banco de dados (Connection Pool), Loggers globais e Caches em memória.<br>
+                • Controle estrito de acesso a recursos compartilhados e inicialização preguiçosa (Lazy Initialization).
+            </div>
+            <div>
+                <strong>Problemas & Riscos:</strong>
+                • Violação do Princípio de Responsabilidade Única (SRP).<br>
+                • Dificulta testes unitários (acoplamento global impossibilita mocks limpos) e introduz gargalos de concorrência em sistemas multithread.
+            </div>
+        </div>
+    </div>
+
+    <!-- BUILDER -->
+    <div class="pattern-box creational">
+        <div class="pattern-header">
+            <span class="pattern-name">2. Builder</span>
+            <span class="pattern-tag">Criacional</span>
+        </div>
+        <p class="pattern-desc">
+            Separa o processo de construção de um objeto complexo da sua representação final, permitindo que o mesmo algoritmo de construção produza diferentes configurações e representações.
+        </p>
+        <div class="pattern-details">
+            <div>
+                <strong>Aplicações & Benefícios:</strong>
+                • Construção de requisições HTTP complexas, geradores de relatórios (PDF/HTML) e entidades com múltiplos parâmetros opcionais.<br>
+                • Elimina construtores telescópicos e assegura a criação de objetos imutáveis consistentes passo a passo.
+            </div>
+            <div>
+                <strong>Problemas & Riscos:</strong>
+                • Aumenta o volume de código e a quantidade de classes auxiliares no projeto (classes Builder específicas para cada produto).
+            </div>
+        </div>
+    </div>
+
+    <!-- PROTOTYPE -->
+    <div class="pattern-box creational">
+        <div class="pattern-header">
+            <span class="pattern-name">3. Prototype</span>
+            <span class="pattern-tag">Criacional</span>
+        </div>
+        <p class="pattern-desc">
+            Permite a instanciação de novos objetos clonando uma instância existente (protótipo), sem acoplar o código cliente às classes concretas que estão sendo duplicadas.
+        </p>
+        <div class="pattern-details">
+            <div>
+                <strong>Aplicações & Benefícios:</strong>
+                • Spawning de entidades em engines de jogos, clonagem de estados complexos em memória e operações de snapshot.<br>
+                • Evita o custo de inicializações pesadas (como I/O e consultas a banco) ao duplicar instâncias já carregadas.
+            </div>
+            <div>
+                <strong>Problemas & Riscos:</strong>
+                • A clonagem de grafos de objetos complexos contendo referências circulares ou ponteiros profundos (Deep Copy) é complexa e sujeita a bugs.
+            </div>
+        </div>
+    </div>
+
+    <!-- TABELA COMPARATIVA 1: CRIACIONAIS -->
+    <div class="subsection-title">Tabela Comparativa 1: Padrões Criacionais</div>
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Dimensão</th>
+                <th>Singleton</th>
+                <th>Builder</th>
+                <th>Prototype</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Mecanismo de Criação</strong></td>
+                <td>Instanciação única sob demanda encapsulada internamente</td>
+                <td>Montagem passo a passo via interface fluente de construção</td>
+                <td>Duplicação em memória a partir de um protótipo existente (Clone)</td>
+            </tr>
+            <tr>
+                <td><strong>Foco Central</strong></td>
+                <td>Garantia de instância única e acesso global coordenado</td>
+                <td>Controle da complexidade e etapas de montagem do objeto</td>
+                <td>Evitar o custo de instanciação direta através de cópia</td>
+            </tr>
+            <tr>
+                <td><strong>Similitudes</strong></td>
+                <td colspan="3">Todos abstraem o uso direto do operador <code>new</code> pelo cliente, desacoplando o consumidor da instanciação de classes concretas.</td>
+            </tr>
+            <tr>
+                <td><strong>Diferenças Chave</strong></td>
+                <td>Retorna sempre o <em>mesmo</em> objeto existente.</td>
+                <td>Gera <em>novas instâncias</em> com configurações distintas.</td>
+                <td>Gera <em>novas instâncias idênticas</em> via cópia profunda.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- SEÇÃO 3: CATEGORIA B - ESTRUTURAIS -->
+    <div class="section-title">3. Categoria B — Padrões Estruturais</div>
+
+    <!-- ADAPTER -->
+    <div class="pattern-box structural">
+        <div class="pattern-header">
+            <span class="pattern-name">4. Adapter</span>
+            <span class="pattern-tag">Estrutural</span>
+        </div>
+        <p class="pattern-desc">
+            Converte a interface de uma classe existente em outra interface esperada pelos clientes, permitindo que classes com interfaces incompatíveis colaborem entre si.
+        </p>
+        <div class="pattern-details">
+            <div>
+                <strong>Aplicações & Benefícios:</strong>
+                • Integração de bibliotecas legadas ou de terceiros (SDKs de pagamento, exportadores de XML/JSON).<br>
+                • Reuso de componentes sem alterar o código original, preservando o Princípio Aberto/Fechado (OCP).
+            </div>
+            <div>
+                <strong>Problemas & Riscos:</strong>
+                • Adiciona uma camada intermediária de indireção e pode mascarar incompatibilidades conceituais entre sistemas.
+            </div>
+        </div>
+    </div>
+
+    <!-- PROXY -->
+    <div class="pattern-box structural">
+        <div class="pattern-header">
+            <span class="pattern-name">5. Proxy</span>
+            <span class="pattern-tag">Estrutural</span>
+        </div>
+        <p class="pattern-desc">
+            Fornece um objeto substituto ou marcador de posição que controla e intercepta o acesso a um objeto de serviço real, implementando a mesmíssima interface.
+        </p>
+        <div class="pattern-details">
+            <div>
+                <strong>Aplicações & Benefícios:</strong>
+                • Lazy Loading de recursos pesados (Virtual Proxy), controle de permissões de acesso (Protection Proxy) e Caching de requisições remotas.<br>
+                • Gerencia o ciclo de vida do objeto de forma totalmente transparente para o cliente.
+            </div>
+            <div>
+                <strong>Problemas & Riscos:</strong>
+                • Pode introduzir latência adicional em chamadas simples e aumenta o número de classes intermediárias no sistema.
+            </div>
+        </div>
+    </div>
+
+    <!-- FACADE -->
+    <div class="pattern-box structural">
+        <div class="pattern-header">
+            <span class="pattern-name">6. Facade</span>
+            <span class="pattern-tag">Estrutural</span>
+        </div>
+        <p class="pattern-desc">
+            Oferece uma interface simplificada e unificada de alto nível para um subsistema complexo composto por múltiplas classes interdependentes.
+        </p>
+        <div class="pattern-details">
+            <div>
+                <strong>Aplicações & Benefícios:</strong>
+                • Inicialização de subsistemas de áudio/gráficos, orquestração de APIs de processamento de compras e SDKs unificados.<br>
+                • Reduz drasticamente as dependências em malha, isolando os clientes da complexidade interna do subsistema.
+            </div>
+            <div>
+                <strong>Problemas & Riscos:</strong>
+                • Risco de a classe Facade tornar-se excessivamente acoplada a todas as engrenagens do subsistema caso não haja modularização adequada.
+            </div>
+        </div>
+    </div>
+
+    <!-- TABELA COMPARATIVA 2: ESTRUTURAIS -->
+    <div class="subsection-title">Tabela Comparativa 2: Padrões Estruturais</div>
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Dimensão</th>
+                <th>Adapter</th>
+                <th>Proxy</th>
+                <th>Facade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Interface Exposta</strong></td>
+                <td>Converte uma interface existente em <em>outra interface diferente</em></td>
+                <td>Mantém <em>exatamente a mesma interface</em> do objeto real</td>
+                <td>Define uma <em>nova interface simplificada</em> de alto nível</td>
+            </tr>
+            <tr>
+                <td><strong>Objetivo Primário</strong></td>
+                <td>Compatibilizar interfaces que não conversavam entre si</td>
+                <td>Controlar, atrasar, proteger ou auditar o acesso ao objeto</td>
+                <td>Simplificar o uso de uma malha densa de classes e subsistemas</td>
+            </tr>
+            <tr>
+                <td><strong>Similitudes</strong></td>
+                <td colspan="3">Todos atuam como intermediários através de composição estrutural, encapsulando objetos subjacentes para proteger o cliente de complexidades.</td>
+            </tr>
+            <tr>
+                <td><strong>Diferenças Chave</strong></td>
+                <td>Muda o formato da chamada para adequação de contrato.</td>
+                <td>Não altera contrato; apenas intercepta a execução.</td>
+                <td>Agrupa múltiplos subsistemas em um único ponto de entrada.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- SEÇÃO 4: CATEGORIA C - COMPORTAMENTAIS -->
+    <div class="section-title">4. Categoria C — Padrões Comportamentais</div>
+
+    <!-- MEDIATOR -->
+    <div class="pattern-box behavioral">
+        <div class="pattern-header">
+            <span class="pattern-name">7. Mediator</span>
+            <span class="pattern-tag">Comportamental</span>
+        </div>
+        <p class="pattern-desc">
+            Centraliza as interações complexas entre múltiplos objetos em um único objeto mediador, eliminando as dependências diretas entre os colegas.
+        </p>
+        <div class="pattern-details">
+            <div>
+                <strong>Aplicações & Benefícios:</strong>
+                • Diálogos de interface gráfica com componentes interdependentes, torres de controle e orquestração de microsserviços.<br>
+                • Reduz o acoplamento $N \times M$ e permite reutilizar objetos colegas isoladamente.
+            </div>
+            <div>
+                <strong>Problemas & Riscos:</strong>
+                • O Mediador corre o risco de virar um <em>God Object</em> monolítico com regras de negócio em excesso.
+            </div>
+        </div>
+    </div>
+
+    <!-- OBSERVER -->
+    <div class="pattern-box behavioral">
+        <div class="pattern-header">
+            <span class="pattern-name">8. Observer</span>
+            <span class="pattern-tag">Comportamental</span>
+        </div>
+        <p class="pattern-desc">
+            Define um mecanismo de assinatura 1:N no qual a alteração de estado em um objeto publicador notifica e atualiza automaticamente todos os assinantes registrados.
+        </p>
+        <div class="pattern-details">
+            <div>
+                <strong>Aplicações & Benefícios:</strong>
+                • Feeds de redes sociais, notificações "avise-me quando chegar", sistemas reativos e event listeners.<br>
+                • Elimina a necessidade de <em>Polling</em> ativo e respeita o Princípio Aberto/Fechado (OCP).
+            </div>
+            <div>
+                <strong>Problemas & Riscos:</strong>
+                • Ordem de notificação não determinística e risco de vazamentos de memória (Lapsed Listener Problem).
+            </div>
+        </div>
+    </div>
+
+    <!-- CHAIN OF RESPONSIBILITY -->
+    <div class="pattern-box behavioral">
+        <div class="pattern-header">
+            <span class="pattern-name">9. Chain of Responsibility</span>
+            <span class="pattern-tag">Comportamental</span>
+        </div>
+        <p class="pattern-desc">
+            Encadeia uma série de manipuladores sequenciais, passando a requisição ao longo da cadeia até que um deles processe o pedido ou a esteira seja finalizada.
+        </p>
+        <div class="pattern-details">
+            <div>
+                <strong>Aplicações & Benefícios:</strong>
+                • Middlewares HTTP (autenticação, autorização, validação de payload) e rotinas de aprovação em camadas.<br>
+                • Desacopla o emissor do receptor e permite reordenar ou compor novos filtros em tempo de execução.
+            </div>
+            <div>
+                <strong>Problemas & Riscos:</strong>
+                • Não há garantia de que a requisição seja processada caso nenhum nó na esteira a trate.
+            </div>
+        </div>
+    </div>
+
+    <!-- TABELA COMPARATIVA 3: COMPORTAMENTAIS -->
+    <div class="subsection-title">Tabela Comparativa 3: Padrões Comportamentais</div>
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Dimensão</th>
+                <th>Mediator</th>
+                <th>Observer</th>
+                <th>Chain of Responsibility</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Topologia do Fluxo</strong></td>
+                <td>Estrela ($N \leftrightarrow 1 \leftrightarrow M$): Comunicação centralizada</td>
+                <td>Broadcast ($1 \rightarrow N$): Publicador emite para lista de ouvintes</td>
+                <td>Pipeline Linear ($1 \rightarrow H_1 \dots \rightarrow H_n$): Encadeamento sequencial</td>
+            </tr>
+            <tr>
+                <td><strong>Destinatário</strong></td>
+                <td>O Mediador decide dinamicamente quem acionar</td>
+                <td><strong>Todos</strong> os observadores registrados são acionados</td>
+                <td><strong>O primeiro nó apto</strong> trata ou interrompe o fluxo</td>
+            </tr>
+            <tr>
+                <td><strong>Similitudes</strong></td>
+                <td colspan="3">Todos buscam desacoplar emissores e receptores através de polimorfismo, flexibilizando a atribuição de responsabilidades em tempo de execução.</td>
+            </tr>
+            <tr>
+                <td><strong>Diferenças Chave</strong></td>
+                <td>Comunicação bidirecional coordenada por um árbitro.</td>
+                <td>Difusão unidirecional reativa sem coordenação de retorno.</td>
+                <td>Encaminhamento sequencial passo a passo até resolução.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="footer-note">
+        SSC0124 — Análise e Projeto Orientados a Objetos • ICMC - USP São Carlos • Relatório Oficial de Avaliação GoF
+    </div>
+</div>
+
+</body>
+</html>
