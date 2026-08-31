@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudo Comparativo de Padrões GoF e Categorias</title>
+    <title>Estudo Comparativo de Padrões GoF e Categorias — Rafael Feltrim</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
@@ -86,40 +86,36 @@
             text-align: center;
         }
 
-        /* MEMBERS CARD */
-        .members-card {
+        /* STUDENT CARD */
+        .student-card {
             background: #f1f5f9;
             border-left: 4px solid var(--primary);
             border-radius: 6px;
             padding: 10px 14px;
             margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .members-card h3 {
-            font-size: 11.5px;
-            font-weight: 700;
+        .student-info strong {
+            font-size: 12px;
             color: var(--primary-dark);
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
-        .members-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-        }
-
-        .member-item {
-            background: white;
-            padding: 6px 10px;
-            border-radius: 4px;
-            border: 1px solid #cbd5e1;
+        .student-info p {
             font-size: 11px;
+            color: #475569;
         }
 
-        .member-item strong {
+        .student-type {
+            background: #e2e8f0;
             color: var(--primary);
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
         /* SECTION TITLES */
@@ -272,19 +268,14 @@
         </div>
     </div>
 
-    <!-- MEMBERS CARD -->
-    <div class="members-card">
-        <h3>Identificação da Equipe</h3>
-        <div class="members-grid">
-            <div class="member-item">
-                <strong>Rafael Feltrim</strong><br>Nº USP: 15942812
-            </div>
-            <div class="member-item">
-                <strong>Pedro Vitor S Lau</strong><br>Nº USP: 13837133
-            </div>
-            <div class="member-item">
-                <strong>Matheus Araújo Alves</strong><br>Nº USP: 1690609
-            </div>
+    <!-- STUDENT CARD -->
+    <div class="student-card">
+        <div class="student-info">
+            <strong>Rafael Feltrim</strong>
+            <p>Nº USP: <strong>15942812</strong> | Engenharia / Ciência da Computação</p>
+        </div>
+        <div class="student-type">
+            Entrega Individual
         </div>
     </div>
 
@@ -635,7 +626,7 @@
     </table>
 
     <div class="footer-note">
-        SSC0124 — Análise e Projeto Orientados a Objetos • ICMC - USP São Carlos • Relatório Oficial de Avaliação GoF
+        SSC0124 — Análise e Projeto Orientados a Objetos • ICMC - USP São Carlos • Relatório Individual de Avaliação GoF
     </div>
 </div>
 

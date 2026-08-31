@@ -4,7 +4,7 @@ const path = require('path');
 
 (async () => {
     try {
-        console.log("Launching browser for GoF Part 2 PDF...");
+        console.log("Launching browser for GoF Part 2 PDF (Individual)...");
         const browser = await puppeteer.launch({
             executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
             headless: 'new'
@@ -17,7 +17,7 @@ const path = require('path');
         await page.goto(documentUrl, { waitUntil: 'networkidle0' });
         
         console.log("Generating PDF...");
-        const outputPath = path.join(__dirname, 'Atividade_3_Padroes_GoF_Segunda_Parte_Grupo.pdf');
+        const outputPath = path.join(__dirname, 'Rafael_Feltrim_Atividade3_Comparacao_Categorias_GoF.pdf');
         await page.pdf({
             path: outputPath,
             format: 'A4',
@@ -26,7 +26,7 @@ const path = require('path');
         });
 
         await browser.close();
-        console.log('SUCCESS: Atividade_3_Padroes_GoF_Segunda_Parte_Grupo.pdf gerado com sucesso!');
+        console.log('SUCCESS: Rafael_Feltrim_Atividade3_Comparacao_Categorias_GoF.pdf gerado com sucesso!');
     } catch (err) {
         console.error("Error generating PDF:", err);
     }
