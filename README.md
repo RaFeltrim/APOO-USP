@@ -24,69 +24,70 @@ Repositório central de estudos, anotações, trabalhos práticos, resumos teór
 
 ---
 
-## 🗂️ Estrutura e Organização do Repositório por Semanas/Módulos
+## 🗂️ Estrutura Oficial do Repositório por Módulos & Semanas
 
 ```text
 APOO - USP/
 │
-├── 📂 00-Informacoes-Gerais/
-│   ├── README.md                                    # Informações docentes, e-mails, horários e plano
-│   ├── Aula 0 - Apresentação da Disciplina.pdf      # Slides introdutórios da disciplina
-│   └── SSC0124 - APOO - Planejamento disciplina.docx.pdf # Cronograma completo e planejamento
+├── 📁 00-Informacoes-Gerais/
+│   ├── README.md                                         # Informações docentes, e-mails, horários e plano
+│   ├── Aula 0 - Apresentação da Disciplina.pdf           # Slides introdutórios da disciplina
+│   └── SSC0124 - APOO - Planejamento disciplina.docx.pdf # Planejamento e cronograma do semestre
 │
-├── 📂 01-Revisao-Paradigma-OO/
-│   ├── README.md                                    # Resumo teórico dos 4 pilares e boas práticas POO
+├── 📁 01-Revisao-Paradigma-OO/                           # (Semana 1)
+│   ├── README.md                                         # Resumo: 4 Pilares da POO, Coesão & Acoplamento
 │   └── Aula 01 - O paradigma de orientação a objetos.pdf # Slides de revisão da Profa. Lina Garcés
 │
-├── 📂 02-Processos-Desenvolvimento-Software/
-│   ├── README.md                                    # Resumo do Processo Unificado (UP) e métodos ágeis
+├── 📁 02-Processos-Desenvolvimento-Software/             # (Semana 2)
+│   ├── README.md                                         # Resumo: Processo Unificado (UP) e Ágil
 │   ├── Aula 02 - Análise e Design de Software e o Processo Unificado.pdf
-│   └── Atividade 1 - Resumo.pdf                     # Resumo manuscrito do Cap. 2 (Valente)
+│   └── Atividade 1 - Resumo.pdf                          # [ENTREGA 1] Resumo manuscrito do Cap. 2 (Valente)
 │
-├── 📂 03-Padroes-de-Projeto-GoF/
-│   ├── README.md                                    # Panorama geral dos Padrões GoF (Criacionais, Estruturais, Comportamentais)
+├── 📁 03-Padroes-de-Projeto-GoF/                         # (Semanas 3 e 4)
+│   ├── README.md                                         # Panorama dos Padrões GoF
 │   ├── Atividade 2 - Padrões GoF - primeira parte.pdf
+│   ├── Aula - Jigsaw - Padrões GoF - 10h.pdf             # Slides da dinâmica Jigsaw em sala
 │   │
-│   ├── 📂 01-Padrao-Observer/
-│   │   ├── README.md                                # Ficha técnica, painel Padlet e análise detalhada
-│   │   ├── Rafael_Feltrim_Entrega_Observer.pdf      # Documento oficial entregue no Moodle
-│   │   ├── Rafael_Feltrim_Atividade2_Observer.zip   # Arquivo compactado da entrega
-│   │   └── 📂 Apresentacao-Web/                     # Aplicação interativa em HTML5/CSS3/JS para apresentação
-│   │       ├── index.html                           # Slides interativos da apresentação
-│   │       ├── documento-apoio.html                 # Documentação técnica formatada
+│   ├── 📁 01-Padrao-Observer/
+│   │   ├── README.md                                     # Ficha técnica, painel Padlet e conceitos
+│   │   ├── Rafael_Feltrim_Entrega_Observer.pdf           # [ENTREGA 2] Relatório do padrão Observer
+│   │   ├── Rafael_Feltrim_Atividade2_Observer.zip        # Pacote compactado da entrega individual
+│   │   └── 📁 Apresentacao-Web/                          # Aplicação interativa em HTML5/CSS3/JS
+│   │       ├── index.html                                # Slides interativos da apresentação
+│   │       ├── documento-apoio.html                      # Documentação técnica formatada
 │   │       ├── styles.css / script.js / print.css
-│   │       └── generate_pdf.js                      # Script Puppeteer para exportação PDF
+│   │       └── generate_pdf.js                           # Script Puppeteer para exportação PDF
 │   │
-│   └── 📂 02-Atividade-Comparacao-Categorias/
-│       └── README.md                                # Matriz de comparação dos padrões comportamentais (Observer vs Strategy vs Command)
+│   ├── 📁 02-Atividade-Comparacao-Categorias/
+│   │   ├── README.md                                     # Matriz de comparação dos padrões comportamentais
+│   │   ├── Relatorio_Discussao_Comportamentais_Grupo.pdf  # [ENTREGA 3] Relatório da discussão em sala (Jigsaw)
+│   │   ├── relatorio-discussao.html                      # Versão HTML para compilação PDF
+│   │   ├── Resumo_Discussao_Comportamentais_Turma10h.md  # Síntese em Markdown
+│   │   └── generate_pdf.js                               # Automação Puppeteer
+│   │
+│   └── 📁 03-Atividade-Comparacao-Categorias-Completa/
+│       ├── README.md                                     # Diretrizes da Atividade 3 (GoF Parte 2)
+│       ├── Rafael_Feltrim_Atividade3_Comparacao_Categorias_GoF.pdf # [ENTREGA 4] Relatório Individual Completo (3 categorias, 9 padrões, 3 tabelas)
+│       ├── relatorio-gof-completo.html                   # Versão HTML estilizada
+│       └── generate_pdf.js                               # Automação Puppeteer
 │
-├── .gitignore
-└── README.md                                        # Portal central de navegação do repositório
+├── .gitignore                                            # Filtro de dependências e arquivos temporários
+└── README.md                                             # Portal central de navegação
 ```
 
 ---
 
-## 📚 Navegação Rápida por Módulo
+## 📚 Mapa de Atividades & Entregas da Disciplina
 
-| Módulo / Semana | Tópico Principal | Materiais & Entregas |
-| :--- | :--- | :--- |
-| **[00-Informações Gerais](./00-Informacoes-Gerais/)** | Contrato Pedagógico & Cronograma | [Slides Aula 0](./00-Informacoes-Gerais/Aula%200%20-%20Apresenta%C3%A7%C3%A3o%20da%20Disciplina.pdf), [Plano de Ensino](./00-Informacoes-Gerais/SSC0124%20-%20APOO%20-%20Planejamento%20disciplina.docx.pdf) |
-| **[01-Revisão POO](./01-Revisao-Paradigma-OO/)** | Pilares da OO, Coesão e Acoplamento | [Slides Aula 1](./01-Revisao-Paradigma-OO/Aula%2001%20-%20O%20paradigma%20de%20orienta%C3%A7%C3%A3o%20a%20objetos.pdf), [Resumo Teórico](./01-Revisao-Paradigma-OO/README.md) |
-| **[02-Processos de Software](./02-Processos-Desenvolvimento-Software/)** | Processo Unificado (UP) & Valente Cap. 2 | [Slides Aula 2](./02-Processos-Desenvolvimento-Software/Aula%2002%20-%20An%C3%A1lise%20e%20Design%20de%20Software%20e%20o%20Processo%20Unificado.pdf), [Atividade 1 (Resumo)](./02-Processos-Desenvolvimento-Software/Atividade%201%20-%20Resumo.pdf) |
-| **[03-Padrões GoF](./03-Padroes-de-Projeto-GoF/)** | Padrões de Projeto (GoF) | [Slides Atividade 2](./03-Padroes-de-Projeto-GoF/Atividade%202%20-%20%20Padr%C3%B5es%20GoF%20-%20primeira%20parte.pdf) |
-| ↳ **[Padrão Observer](./03-Padroes-de-Projeto-GoF/01-Padrao-Observer/)** | Especialistas Observer (Turma 10h) | [Apresentação Interativa](./03-Padroes-de-Projeto-GoF/01-Padrao-Observer/Apresentacao-Web/), [PDF Entrega](./03-Padroes-de-Projeto-GoF/01-Padrao-Observer/Rafael_Feltrim_Entrega_Observer.pdf), [Ficha Técnica](./03-Padroes-de-Projeto-GoF/01-Padrao-Observer/README.md) |
-| ↳ **[Comparação Categorias](./03-Padroes-de-Projeto-GoF/02-Atividade-Comparacao-Categorias/)** | Comparação dos Padrões Comportamentais | [Matriz Comparativa](./03-Padroes-de-Projeto-GoF/02-Atividade-Comparacao-Categorias/README.md) |
+| Atividade | Tópico Abordado | Status | Arquivo Final de Entrega |
+| :--- | :--- | :--- | :--- |
+| **Atividade 1** | Resumo Cap. 2 Eng. Software Moderna (Processos de Software) | ✅ **Concluída** | [`Atividade 1 - Resumo.pdf`](./02-Processos-Desenvolvimento-Software/Atividade%201%20-%20Resumo.pdf) |
+| **Atividade 2** | Estudo Individual de Padrão (Padrão Observer) | ✅ **Concluída** | [`Rafael_Feltrim_Entrega_Observer.pdf`](./03-Padroes-de-Projeto-GoF/01-Padrao-Observer/Rafael_Feltrim_Entrega_Observer.pdf) |
+| **Atividade em Sala (Jigsaw)** | Comparação de Padrões Comportamentais (Mediator, Observer, CoR) | ✅ **Concluída** | [`Relatorio_Discussao_Comportamentais_Grupo.pdf`](./03-Padroes-de-Projeto-GoF/02-Atividade-Comparacao-Categorias/Relatorio_Discussao_Comportamentais_Grupo.pdf) |
+| **Atividade 3 (GoF Parte 2)** | Estudo Comparativo Completo: 3 Categorias, 9 Padrões e 3 Tabelas | ✅ **Concluída** | [`Rafael_Feltrim_Atividade3_Comparacao_Categorias_GoF.pdf`](./03-Padroes-de-Projeto-GoF/03-Atividade-Comparacao-Categorias-Completa/Rafael_Feltrim_Atividade3_Comparacao_Categorias_GoF.pdf) |
 
 ---
 
-## 👥 Colaboradores
+## 👥 Autor
 
 - **Rafael Feltrim** ([GitHub](https://github.com/RaFeltrim)) — ICMC USP
-- **Pedro Hamamoto da Palma** — ICMC USP
-- **Nicolas José Mota** — ICMC USP
-
----
-
-## 📄 Licença & Propósito
-
-Este repositório possui finalidade estritamente acadêmica e educacional, servindo de base de conhecimento para a comunidade do ICMC-USP e estudantes de Engenharia/Ciência da Computação interessados em Engenharia de Software e Padrões de Projeto.
